@@ -1,4 +1,4 @@
-<<template>
+<template>
   
 <div class="box is-info">
     <p>
@@ -32,7 +32,7 @@ repeatCount="indefinite"/>
 </div>
 </template>
 
-<<script>
+<script>
 export default {
 data () {
     return {
@@ -46,7 +46,7 @@ data () {
 }
 </script>
 
-<<style>
+<style>
 .imagerotate {
     /* position: absolute; 
     top: 50%;
