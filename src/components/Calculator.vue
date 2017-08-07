@@ -9,7 +9,16 @@ Calculator
 <input v-model.number="crankset" type="number">
 <img src="../assets/img/bike-gears.svg" width="64" alt="Gears (Casette)"/>
 <input v-model.number="cassette" type="number">
-<img src="../assets/img/bike-spokes.svg" width="64" alt="Wheel Diameter"/>
+<img class="imagerotate" src="../assets/img/bike-spokes.svg" width="64" alt="Wheel Diameter">
+<animateTransform attributeType="xml"
+attributeName="transform"
+type="rotate"
+from="0 180 50"
+to="360 180 50"
+dur="4s"
+repeatCount="indefinite"/>
+
+</img>
 <input v-model.number="diameter_wheel" type="number">
 {{ rpm }}
 {{ crankset }}
@@ -37,7 +46,22 @@ data () {
 }
 </script>
 
-<<style lang="sass">
+<<style>
+.imagerotate {
+    /* position: absolute; 
+    top: 50%;
+    left: 50%;
+    width: 120px;
+    height: 120px;
     
+    margin:-60px 0 0 -60px;
+    */
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
     
 </style>
