@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <!--img src="./assets/logo.png"-->
     <h1>{{ title }}</h1>
     <calculator></calculator>
   </div>
