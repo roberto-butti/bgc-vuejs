@@ -1,39 +1,51 @@
 <template>
 
-<b-panel :collapsible="isCollapsible">
+<b-panel >
     <strong slot="header">Bike Gear Calculator</strong>
-    <div class="content">
+    <div class="box">
         <div class="columns">
             <div class="column">
-                <b-field label="Numero di pedalate per minuto:">
-                    <b-input  v-model.number="rpm" type="number" size="is-large"></b-input>
-                </b-field>
+                <div class="field">
+                    <label class="label">Numero di pedalate per minuto</label>
+                    <div class="control">
+                        <input class="input is-large" type="number" v-model.number="rpm" placeholder="RPM" >
+                    </div>
+                </div>
             </div>
             <div class="column">
-                <b-field label="Numero di denti sulla corona anteriore:">
-                    <b-input  v-model.number="crankset" type="number" size="is-large"></b-input>
-                </b-field>
+                <div class="field">
+                    <label class="label">Numero di denti sulla corona anteriore</label>
+                    <div class="control">
+                        <input class="input is-large" type="number" v-model.number="crankset" placeholder="Crankset" >
+                    </div>
+                </div>
             </div>
+            <div class="column">
+                <div class="field">
+                    <label class="label">Numero di denti sul pignone posteriore</label>
+                    <div class="control">
+                        <input class="input is-large" type="number" v-model.number="cassette" placeholder="Cassette" >
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="field">
+                    <label class="label">Circonferenza in millimetri della ruota posteriore</label>
+                    <div class="control">
+                        <input class="input is-large" type="number" v-model.number="diameter_wheel" placeholder="Diameter Wheel" >
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="columns">
             <div class="column">
-                <b-field label="Numero di denti sul pignone posteriore: ">
-                    <b-input v-model.number="cassette" type="number" size="is-large"></b-input>
-                </b-field>
+                <img v-bind:style="{ animation:  'spin '+ (1/((crankset/cassette)*rpm/60)) +'s linear infinite'}" src="../assets/img/ruota.svg" width="256" alt="Wheel Diameter"/>
             </div>
             <div class="column">
-                <b-field label="Circonferenza in millimetri della ruota posteriore:">
-                    <b-input v-model.number="diameter_wheel" type="number" size="is-large"></b-input>
-                </b-field>
+                <img v-bind:style="{ animation:  'spin '+ (60/rpm) +'s linear infinite'}" src="../assets/img/bike-crankset.svg" width="256" alt="Crankset"/>
             </div>
-        </div>
-        <div class="columns">
-            <div class="column">
-                <img v-bind:style="{ animation:  'spin '+ (60/rpm) +'s linear infinite'}" src="../assets/img/bike-crankset.svg" width="64" alt="Crankset"/>
-            </div>
-            <div class="column">
-                <img v-bind:style="{ animation:  'spin '+ (1/((crankset/cassette)*rpm/60)) +'s linear infinite'}" src="../assets/img/ruota.svg" width="64" alt="Wheel Diameter"/>
-            </div>
+
         </div>
         <div class="columns">
             <div class="column">
