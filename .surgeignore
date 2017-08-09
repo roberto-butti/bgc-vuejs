@@ -1,0 +1,12 @@
+.git
+.*
+*.*~
+node_modules
+bower_components
+README.md
+src
+package*.json
+webpack.config.js
+yarn.lock
+
+
