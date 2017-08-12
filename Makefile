@@ -1,4 +1,4 @@
-.PHONY: build deploy
+.PHONY: build deploy fixindexhtml restoreindexhtml surgeexec
 GACODE=UA-YYYYYYYYY-Y
 -include config.mk
 
