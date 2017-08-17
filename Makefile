@@ -19,5 +19,5 @@ surgeexec:
 	@echo executing $@
 	surge -p . -d bike-gear.surge.sh
 
-deploy: fixindexhtml surgeexec restoreindexhtml
+deploy: build fixindexhtml surgeexec restoreindexhtml
 	@echo "DEPLOY ended"

@@ -5,7 +5,7 @@
                 <div class="field">
                     <label class="label">Cadence (pedaling rate)<!--Pedalate al minuto--></label>
                     <div class="control">
-                        <input class="input is-large" type="number" v-model.number="rpm" placeholder="RPM">
+                        <input id="rpm" class="input is-large" v-on:keyup="track" type="number" v-model.number="rpm" placeholder="RPM">
                     </div>
                 </div>
             </div>
@@ -13,7 +13,7 @@
                 <div class="field">
                     <label class="label">Chainset<!--Corona anteriore--></label>
                     <div class="control">
-                        <input class="input is-large" type="number" v-model.number="crankset" placeholder="Crankset">
+                        <input id="crankset" v-on:keyup="track" class="input is-large" type="number" v-model.number="crankset" placeholder="Crankset">
                     </div>
                 </div>
             </div>
@@ -21,7 +21,7 @@
                 <div class="field">
                     <label class="label">Cassette<!--Pignone posteriore--></label>
                     <div class="control">
-                        <input class="input is-large" type="number" v-model.number="cassette" placeholder="Cassette">
+                        <input id="cassette" v-on:keyup="track" class="input is-large" type="number" v-model.number="cassette" placeholder="Cassette">
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                 <div class="field">
                     <label class="label">Wheel size mm.<!--Circonferenza ruota (mm.)--></label>
                     <div class="control">
-                        <input class="input is-large" type="number" v-model.number="diameter_wheel" placeholder="Diameter Wheel">
+                        <input id="diameter_wheel" v-on:keyup="track" class="input is-large" type="number" v-model.number="diameter_wheel" placeholder="Diameter Wheel">
                     </div>
                 </div>
             </div>
@@ -37,26 +37,23 @@
         </div>
         <div class="columns">
             <div class="column">
-                <p class="stat-val has-text-centered">{{ (1/(rpm/60)).toFixed(2) }} s.</p>
+                <p class="stat-val has-text-centered">{{ secondsPerPedal }} s.</p>
                 <p class="stat-key has-text-centered">Seconds for a stroke of pedal<!--Secondi per fare una pedalata completa.--></p>
-    
-            </div>
-    
+            </div>    
             <div class="column">
-                <p class="stat-val has-text-centered">{{ (crankset/cassette).toFixed(2) }}</p>
+                <p class="stat-val has-text-centered">{{ gearRatio }}</p>
                 <p class="stat-key has-text-centered">Gear Ratio</p>
             </div>
             <div class="column">
-                <p class="stat-val has-text-centered">{{ ((crankset/cassette)*rpm).toFixed(2) }} rpm</p>
+                <p class="stat-val has-text-centered">{{ wheelRpm }} rpm</p>
                 <p class="stat-key has-text-centered">Wheel RPM</p>
             </div>
-    
             <div class="column">
-                <p class="stat-val has-text-centered">{{ (1/((crankset/cassette)*rpm/60)).toFixed(2) }} s.</p>
+                <p class="stat-val has-text-centered">{{ secondsPerWheel }} s.</p>
                 <p class="stat-key has-text-centered">Wheel speed in seconds<!--Secondi per un giro di ruota--></p>
             </div>
             <div class="column">
-                <p class="stat-val has-text-centered">{{ ((((crankset/cassette)*diameter_wheel*rpm)/1000000)*60).toFixed(2) }}km/h</p>
+                <p class="stat-val has-text-centered">{{ speed }} km/h</p>
                 <p class="stat-key has-text-centered">Speed Km/h</p>
             </div>
         </div>    
@@ -82,6 +79,35 @@ export default {
             cassette: 18,
             diameter_wheel: 2098.58 // ( 622 + 23 + 23 ) * PI
         }
+    },
+    methods: {
+        track: function (event) {
+            window.ga('send', {
+                hitType: 'event',
+                eventCategory: 'input',
+                eventAction: 'set',
+                eventLabel: event.target.id,
+                eventValue: event.target.value
+            })
+        }
+    },
+    computed: {
+        secondsPerPedal: function () {
+            return (1/(this.rpm/60)).toFixed(2)
+        },
+        gearRatio: function () {
+            return (this.crankset/this.cassette).toFixed(2)
+        },
+        wheelRpm: function () {
+            return ((this.crankset/this.cassette)*this.rpm).toFixed(2)
+        },
+        secondsPerWheel: function () {
+            return (1/((this.crankset/this.cassette)*this.rpm/60)).toFixed(2)
+        },
+        speed: function () {
+            return ((((this.crankset/this.cassette)*this.diameter_wheel*this.rpm)/1000000)*60).toFixed(2)
+        }
+
 
     }
 }
