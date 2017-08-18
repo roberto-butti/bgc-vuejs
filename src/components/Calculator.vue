@@ -59,14 +59,16 @@
         </div>    
         <div class="columns">
             <div class="column has-text-centered">
-                <img v-bind:style="{ animation:  'spin '+ (1/((crankset/cassette)*rpm/60)) +'s linear infinite'}" src="../assets/img/ruota.svg" width="128" alt="Wheel Diameter" />
+                <img v-bind:style="{ animation:  'spin '+ secondsPerWheel +'s linear infinite'}" src="../assets/img/ruota.svg" width="128" alt="Wheel Diameter" />
             </div>
             <div class="column has-text-centered">
-                <img v-bind:style="{ animation:  'spin '+ (60/rpm) +'s linear infinite'}" src="../assets/img/bike-crankset.svg" width="128" alt="Crankset" />
+                <img v-bind:style="{ animation:  'spin '+ secondsPerPedal +'s linear infinite'}" src="../assets/img/bike-crankset.svg" width="128" alt="Crankset" />
             </div>
     
         </div>
-
+        <div class="box  has-text-centered">
+            <a class="button is-primary" v-bind:href="url">Share your configuration</a>
+        </div>
     </div>
 </template>
 
@@ -74,10 +76,10 @@
 export default {
     data() {
         return {
-            rpm: 70,
-            crankset: 50,
-            cassette: 18,
-            diameter_wheel: 2098.58 // ( 622 + 23 + 23 ) * PI
+            rpm: (this.$route.query.rpm === undefined ? 70 : this.$route.query.rpm),
+            crankset: (this.$route.query.crankset === undefined ? 50 : this.$route.query.crankset),
+            cassette: (this.$route.query.cassette === undefined ? 18 : this.$route.query.cassette),
+            diameter_wheel: (this.$route.query.diameter_wheel === undefined ? 2098.58 : this.$route.query.diameter_wheel), //2098.58 // ( 622 + 23 + 23 ) * PI
         }
     },
     methods: {
@@ -92,6 +94,10 @@ export default {
         }
     },
     computed: {
+        url: function() {
+            return "/?rpm="+this.rpm+"&crankset="+this.crankset+"&cassette="+this.cassette+"&diameter_wheel="+this.diameter_wheel
+
+        },
         secondsPerPedal: function () {
             return (1/(this.rpm/60)).toFixed(2)
         },
