@@ -69,6 +69,10 @@
         <div class="box  has-text-centered">
             <a class="button is-primary" v-bind:href="url">Share your configuration</a>
         </div>
+        <div class="box  has-text-centered">
+            <img :src="qrimg" />
+            <!-- {{ qrimg }} -->
+        </div>
     </div>
 </template>
 
@@ -91,12 +95,20 @@ export default {
                 eventLabel: event.target.id,
                 eventValue: event.target.value
             })
+        },
+        createUrl: function () {
+            // console.log(window.location)
+            return window.location.origin+"/?rpm="+this.rpm+"&crankset="+this.crankset+"&cassette="+this.cassette+"&diameter_wheel="+this.diameter_wheel
         }
     },
     computed: {
+        qrimg: function() {
+            // return "http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=http%3A//bike-gear.surge.sh/&chld=H|0"
+            return "http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=" + encodeURIComponent(this.createUrl()) + "&chld=H|0"
+        },
         url: function() {
-            return "/?rpm="+this.rpm+"&crankset="+this.crankset+"&cassette="+this.cassette+"&diameter_wheel="+this.diameter_wheel
-
+            // return "/?rpm="+this.rpm+"&crankset="+this.crankset+"&cassette="+this.cassette+"&diameter_wheel="+this.diameter_wheel
+            return this.createUrl()
         },
         secondsPerPedal: function () {
             return (1/(this.rpm/60)).toFixed(2)
