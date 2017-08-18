@@ -62,7 +62,7 @@
                 <img v-bind:style="{ animation:  'spin '+ secondsPerWheel +'s linear infinite'}" src="../assets/img/ruota.svg" width="128" alt="Wheel Diameter" />
             </div>
             <div class="column has-text-centered">
-                <img v-bind:style="{ animation:  'spin '+ secondsPerPedal +'s linear infinite'}" src="../assets/img/bike-crankset.svg" width="128" alt="Crankset" />
+                <img v-bind:style="{ animation:  'spin '+ secondsPerPedal +'s linear infinite', 'transform-origin': '40.5% 54.7%'}" src="../assets/img/bike-crankset.svg" width="128" alt="Crankset" />
             </div>
     
         </div>
